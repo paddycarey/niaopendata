@@ -70,7 +70,16 @@ def _generate_remote_methods():
     return remote_methods
 
 
-@pytest.mark.skipif(sys.version_info[0] > 2, reason="requires python2")
+def _check_python_version():
+    _v = sys.version_info
+    if _v[0] == 2 and _v[1] <= 6:
+        return False
+    if _v[0] == 3:
+        return False
+    return True
+
+
+@pytest.mark.skipif(not _check_python_version(), reason="requires python27")
 def test_remote_method(remote_method):
     """Test that a remote method is implemented correctly
     """
@@ -86,6 +95,6 @@ def test_remote_method(remote_method):
 def pytest_generate_tests(metafunc):
     if 'remote_method' not in metafunc.fixturenames:
         return
-    if sys.version_info[0] > 2:
+    if not _check_python_version():
         return
     metafunc.parametrize("remote_method", _generate_remote_methods())
