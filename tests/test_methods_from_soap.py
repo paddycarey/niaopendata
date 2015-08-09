@@ -3,8 +3,10 @@
 # stdlib imports
 import inspect
 import re
+import sys
 
 # third-party imports
+import pytest
 from pysimplesoap.client import SoapClient
 
 # local imports
@@ -68,6 +70,7 @@ def _generate_remote_methods():
     return remote_methods
 
 
+@pytest.mark.skipif(sys.version_info[0] > 2, reason="requires python2")
 def test_remote_method(remote_method):
     """Test that a remote method is implemented correctly
     """
@@ -82,5 +85,7 @@ def test_remote_method(remote_method):
 
 def pytest_generate_tests(metafunc):
     if 'remote_method' not in metafunc.fixturenames:
+        return
+    if sys.version_info[0] > 2:
         return
     metafunc.parametrize("remote_method", _generate_remote_methods())
