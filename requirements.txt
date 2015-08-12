@@ -1,8 +1,8 @@
 # niaopendata test requirements
 PySimpleSOAP >= 1.16
-beautifulsoup4 >= 4.4.0
+beautifulsoup4 >= 4.4
 pytest >= 2.6
 pytest-cov >= 2
 requests >= 2
 xmltodict >= 0.9
-lxml
+lxml >= 3.4
