@@ -35,7 +35,6 @@ def _check_method_exists(method_name):
 
 
 def _check_method_signature(method, function):
-    print method
     _i = method['input']
     if _i is not None:
         assert len(_i.keys()) == 1
