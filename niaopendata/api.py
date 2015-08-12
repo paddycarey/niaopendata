@@ -14,8 +14,7 @@ def _call_service(service, endpoint, **kwargs):
     # Base URL for all API calls
     base_url = 'http://data.niassembly.gov.uk'
     url = "{0}/{1}.asmx/{2}".format(base_url, service, endpoint)
-    resp = requests.get(url, params=kwargs)
-    return _parse_service_response(resp)
+    return requests.get(url, params=kwargs)
 
 
 def _parse_list_response(response, outer_key, inner_key):

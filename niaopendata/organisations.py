@@ -9,6 +9,7 @@ from __future__ import absolute_import
 from .api import ParseError
 from .api import _call_service
 from .api import _parse_list_response
+from .api import _parse_service_response
 
 
 def _call_organisations_service(endpoint, **kwargs):
@@ -16,7 +17,8 @@ def _call_organisations_service(endpoint, **kwargs):
     kwargs will be serialised in the query string used when calling the service
     """
     try:
-        return _call_service("organisations", endpoint, **kwargs)
+        resp = _call_service("organisations", endpoint, **kwargs)
+        return _parse_service_response(resp)
     except ParseError:
         return {}
 

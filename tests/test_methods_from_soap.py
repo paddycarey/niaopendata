@@ -35,6 +35,7 @@ def _check_method_exists(method_name):
 
 
 def _check_method_signature(method, function):
+    print method
     _i = method['input']
     if _i is not None:
         assert len(_i.keys()) == 1
@@ -42,6 +43,17 @@ def _check_method_signature(method, function):
     else:
         _r_args = {}
     _l_args = inspect.getargspec(function)
+    # check the right number of args are defined. The WSDL file doesn't
+    # properly define input arguments for HTTP methods, so we need to blacklist
+    # a couple of specific methods from this check.
+    _blacklist = [
+        'questions_for_oral_answer_answered_in_range',
+        'questions_for_oral_answer_tabled_in_range',
+        'questions_for_written_answer_answered_in_range',
+        'questions_for_written_answer_tabled_in_range',
+    ]
+    if function.__name__ in _blacklist:
+        return
     assert len(_r_args) == len(_l_args.args)
 
 
@@ -56,7 +68,7 @@ def _generate_remote_methods():
     """
     seen_methods = set()
     remote_methods = []
-    service_names = ["members", "organisations"]
+    service_names = ["members", "questions", "organisations"]
     for service_name in service_names:
         _wsdl = "http://data.niassembly.gov.uk/{0}.asmx?WSDL".format(service_name)
         client = SoapClient(wsdl=_wsdl)

@@ -15,6 +15,16 @@ from .members import all_member_roles
 from .members import all_members_by_given_date
 from .members import member_contact_details_by_person_id
 from .members import member_roles_by_person_id
+from .questions import question_details
+from .questions import questions_by_department
+from .questions import questions_by_member
+from .questions import questions_by_search_text
+from .questions import questions_for_oral_answer_answered_in_range
+from .questions import questions_for_oral_answer_tabled_in_range
+from .questions import questions_for_written_answer_answered_in_range
+from .questions import questions_for_written_answer_tabled_in_range
+from .questions import written_answer_html
+from .questions import written_answer_open_xml
 from .organisations import all_party_groups_list_current
 from .organisations import committees_list_current_ad_hoc
 from .organisations import committees_list_current_other
@@ -40,6 +50,18 @@ __all__ = [
     'all_members_by_given_date',
     'member_contact_details_by_person_id',
     'member_roles_by_person_id',
+
+    # Questions Web Service
+    'question_details',
+    'questions_by_department',
+    'questions_by_member',
+    'questions_by_search_text',
+    'questions_for_oral_answer_answered_in_range',
+    'questions_for_oral_answer_tabled_in_range',
+    'questions_for_written_answer_answered_in_range',
+    'questions_for_written_answer_tabled_in_range',
+    'written_answer_html',
+    'written_answer_open_xml',
 
     # Organisations Web Service
     'all_party_groups_list_current',
