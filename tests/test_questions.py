@@ -15,8 +15,17 @@ from test_utils import _check_valid_list_response
 
 
 def _random_date(start, end):
-    rand_delta = random.randint(0, int((end - start).total_seconds()))
+    rand_delta = random.randint(0, int(_total_seconds(end - start)))
     return start + datetime.timedelta(seconds=rand_delta)
+
+
+def _total_seconds(td):
+    # Keep backward compatibility with Python 2.6 which doesn't have the
+    # `total_seconds` method on datetime.timedelta objects
+    if hasattr(td, 'total_seconds'):
+        return td.total_seconds()
+    else:
+        return (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6
 
 
 def test_question_details():
@@ -134,5 +143,5 @@ def test_written_answer_open_xml():
             # use ElementTree to validate that the returned string is actually XML
             try:
                 etree.fromstring(open_xml)
-            except Exception, e:
+            except Exception as e:
                 assert e is None
