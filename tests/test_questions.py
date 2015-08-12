@@ -33,7 +33,7 @@ def test_question_details():
     """
     department = niaopendata.department_list_current()[0]
     questions = niaopendata.questions_by_department(department['OrganisationId'])
-    rand_smpl = [questions[i] for i in sorted(random.sample(xrange(len(questions)), 3))]
+    rand_smpl = [questions[i] for i in sorted(random.sample(range(len(questions)), 3))]
     for question in rand_smpl:
         r = niaopendata.question_details(question['DocumentId'])
         _check_valid_list_response(r)
@@ -43,7 +43,7 @@ def test_questions_by_department():
     """questions_by_department works as expected
     """
     departments = niaopendata.department_list_current()
-    rand_smpl = [departments[i] for i in sorted(random.sample(xrange(len(departments)), 3))]
+    rand_smpl = [departments[i] for i in sorted(random.sample(range(len(departments)), 3))]
     for department in rand_smpl:
         r = niaopendata.questions_by_department(department['OrganisationId'])
         _check_valid_list_response(r)
@@ -53,7 +53,7 @@ def test_questions_by_member():
     """questions_by_member works as expected
     """
     members = niaopendata.all_current_members()
-    rand_smpl = [members[i] for i in sorted(random.sample(xrange(len(members)), 3))]
+    rand_smpl = [members[i] for i in sorted(random.sample(range(len(members)), 3))]
     for member in rand_smpl:
         r = niaopendata.questions_by_member(member['PersonId'])
         _check_valid_list_response(r)
@@ -124,7 +124,7 @@ def test_written_answer_html():
     for _start in [_random_date(datetime.datetime(2008, 1, 1), datetime.datetime(2014, 1, 1))]:
         _end = _start + datetime.timedelta(days=365)
         questions = niaopendata.questions_for_written_answer_answered_in_range(_start, _end)
-        rand_smpl = [questions[i] for i in sorted(random.sample(xrange(len(questions)), 3))]
+        rand_smpl = [questions[i] for i in sorted(random.sample(range(len(questions)), 3))]
         for question in rand_smpl:
             html = niaopendata.written_answer_html(question['DocumentId'])
             # use beautifulsoup to validate that the returned string is actually HTML
@@ -137,7 +137,7 @@ def test_written_answer_open_xml():
     for _start in [_random_date(datetime.datetime(2008, 1, 1), datetime.datetime(2014, 1, 1))]:
         _end = _start + datetime.timedelta(days=365)
         questions = niaopendata.questions_for_written_answer_answered_in_range(_start, _end)
-        rand_smpl = [questions[i] for i in sorted(random.sample(xrange(len(questions)), 3))]
+        rand_smpl = [questions[i] for i in sorted(random.sample(range(len(questions)), 3))]
         for question in rand_smpl:
             open_xml = niaopendata.written_answer_open_xml(question['DocumentId'])
             # use ElementTree to validate that the returned string is actually XML
